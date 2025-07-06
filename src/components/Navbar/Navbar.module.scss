@@ -1,64 +1,111 @@
 .navbar {
   display: flex;
-  align-items: center;
+  align-items: center;   // ya centra los elementos verticalmente
   justify-content: space-between;
-  padding: 0.5rem 1rem;
-  background: var(--bg-color);
-  color: var(--text-color);
+  padding: 0 1.5rem;
+  background: #2c2c2c;
+  color: white;
+  width: 100%;
+  height: 60px;
+  box-sizing: border-box;
 }
 
 .left {
   .logo {
-    font-weight: bold;
-    font-size: 1.5rem;
+    height: 100px;   // ajustamos el logo al alto del navbar
+    width: auto;
+    display: block;
   }
 }
 
 .menu {
   list-style: none;
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
+  font-size: 0.85rem;  // 🔥 mismo tamaño que “Buscar tienda”
+
   li {
     cursor: pointer;
+    position: relative;
+    transition: all 0.3s;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: gold;
+      transition: width 0.3s;
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
   }
 }
 
 .right {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
 
   .search {
-    padding: 0.25rem 0.5rem;
+    padding: 0.4rem 0.8rem;
     border: 1px solid #ccc;
     border-radius: 4px;
+    transition: transform 0.3s;
+    width: 250px;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 
-  .button {
-    background: #000;
-    color: #fff;
-    border: none;
-    padding: 0.5rem 0.75rem;
-    border-radius: 4px;
+  .mapLink {
     cursor: pointer;
-  }
-
-  .cart {
     position: relative;
-    svg {
-      width: 24px;
-      height: 24px;
+    transition: all 0.3s;
+    font-size: 0.85rem;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: gold;
+      transition: width 0.3s;
+      position: absolute;
+      bottom: -4px;
+      left: 0;
     }
 
-    .badge {
-      position: absolute;
-      top: -6px;
-      right: -6px;
-      background: red;
-      color: white;
-      border-radius: 50%;
-      padding: 2px 6px;
-      font-size: 0.75rem;
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+  }
+
+  .ingresarButton {
+    border: 1px solid white;
+    background: transparent;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: transform 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.1);
     }
   }
 }

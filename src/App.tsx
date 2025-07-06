@@ -1,23 +1,20 @@
-import React from 'react';
-import './App.css';
+import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
+import Navbar from './components/Navbar/Navbar';
+import WhatsAppButton from './components/WhatsAppButton/WhatsAppButton';
+import CartButton from './components/CartButton/CartButton';
+import ProductPage from './pages/ProductPage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <CartProvider>
+        <Navbar />
+        <ProductPage />
+        <CartButton />
+        <WhatsAppButton />
+      </CartProvider>
+    </AuthProvider>
   );
 }
 

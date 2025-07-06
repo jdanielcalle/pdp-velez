@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
-import { CartContext } from '../context/CartContext';
-import styles from './ProductPage.module.scss';
+import { CartContext } from '../../context/CartContext';
+import styles from './ProductGallery.module.scss';
 
 interface Product {
   id: string;
@@ -10,30 +10,32 @@ interface Product {
   image: string;
 }
 
-const ProductPage = () => {
+const ProductGallery = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
-    axios.get('https://api-frontend-production.up.railway.app/api/products/125829257')
-      .then(response => {
-        const data = Array.isArray(response.data) ? response.data : [response.data];
+    axios.get('https://api-frontend-production.up.railway.app/api/products?ft=tenis')
+      .then((response) => {
+        const data = response.data;
         const mapped = data.map((item: any) => ({
-          id: item.id || item._id || String(Math.random()),
-          name: item.name || 'Producto sin nombre',
-          price: item.price || 0,
+          id: item.id,
+          name: item.name,
+          price: item.price,
           image: item.image || 'https://via.placeholder.com/150',
         }));
         setProducts(mapped);
       })
-      .catch(error => console.error('Error al cargar productos:', error));
+      .catch((error) => {
+        console.error('Error al cargar la vitrina:', error);
+      });
   }, []);
 
   return (
-    <div className={styles.productPage}>
+    <div className={styles.gallery}>
       {products.map(product => (
         <div key={product.id} className={styles.card}>
-          <img src={product.image} alt={product.name} className={styles.image} />
+          <img src={product.image} alt={product.name} />
           <h3>{product.name}</h3>
           <p>${product.price.toFixed(2)}</p>
           <button onClick={() => addToCart({ ...product, quantity: 1 })}>
@@ -45,4 +47,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default ProductGallery;

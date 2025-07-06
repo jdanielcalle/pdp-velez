@@ -1,2 +1,12 @@
 @import './variables';
 @import './mixins';
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica', 'Segoe UI', Roboto, Ubuntu, sans-serif;
+}
