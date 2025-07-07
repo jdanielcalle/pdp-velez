@@ -140,7 +140,6 @@
   }
 }
 
-/* 🚀 RESPONSIVE PARA MÓVIL */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
@@ -172,5 +171,43 @@
       width: 100%;
       text-align: center;
     }
+  }
+}
+
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: #2c2c2c;
+    padding: 1rem 0;
+  }
+
+  .menu.open {
+    display: flex;
+  }
+
+  .right {
+    display: none; 
+  }
+
+  .menu.open + .right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.5rem;
   }
 }
