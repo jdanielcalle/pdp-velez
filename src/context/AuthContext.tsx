@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, User as FirebaseUser } from 'firebase/auth';
-import { firebaseApp } from '../firebase'; // el archivo donde inicialices firebase
+import { firebaseApp } from '../firebase';
 
 interface User {
   uid: string;

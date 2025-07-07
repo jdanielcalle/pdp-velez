@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import Slider from 'react-slick';
-import { CartContext } from '../../context/CartContext';
 import styles from './ProductGallery.module.scss';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useCart } from '../../hooks/useCart';
 
 interface Product {
   id: string;
@@ -16,7 +16,7 @@ interface Product {
 const ProductGallery = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [modalProduct, setModalProduct] = useState<Product | null>(null);
-  const { addToCart } = useContext(CartContext);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     axios.get('https://api-frontend-production.up.railway.app/api/products')

@@ -1,6 +1,7 @@
 .pageWrapper {
   padding: 1rem;
-  overflow-x: hidden;  // previene desbordamiento horizontal
+  overflow-x: hidden;
+  margin-top: 70px;
 }
 
 .productPage {
@@ -8,7 +9,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   color: white;
-  max-width: 100%;  // asegura que no desborde
+  max-width: 100%;
   box-sizing: border-box;
 }
 

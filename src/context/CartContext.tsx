@@ -1,4 +1,6 @@
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useEffect, ReactNode, useContext } from 'react';
+import { saveCartToFirestore, getCartFromFirestore } from '../utils/firebaseUtils';
+import { AuthContext } from './AuthContext';
 
 interface CartItem {
   id: string;
@@ -25,19 +27,32 @@ export const CartContext = createContext<CartContextType>({
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const { user } = useContext(AuthContext);
 
-  // 🔹 Cargar carrito desde localStorage
+  // Cargar carrito: Firestore o localStorage
   useEffect(() => {
-    const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
-      setCartItems(JSON.parse(storedCart));
+    if (user) {
+      getCartFromFirestore(user.uid).then(firestoreCart => {
+        if (firestoreCart) {
+          setCartItems(firestoreCart);
+        }
+      });
+    } else {
+      const storedCart = localStorage.getItem('cart');
+      if (storedCart) {
+        setCartItems(JSON.parse(storedCart));
+      }
     }
-  }, []);
+  }, [user]);
 
-  // 🔹 Guardar carrito en localStorage
+  // Guardar carrito
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cartItems));
-  }, [cartItems]);
+    if (user) {
+      saveCartToFirestore(user.uid, cartItems);
+    } else {
+      localStorage.setItem('cart', JSON.stringify(cartItems));
+    }
+  }, [cartItems, user]);
 
   const addToCart = (item: CartItem) => {
     setCartItems(prev => {
