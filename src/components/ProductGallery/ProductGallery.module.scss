@@ -1,12 +1,12 @@
 .gallery {
   padding: 1rem;
+  overflow-x: hidden;  // previene desbordamiento por el slider
 
   .slick-arrow {
     background: rgba(255, 215, 0, 0.8);
     border-radius: 50%;
     width: 35px;
     height: 35px;
-    z-index: 1;
 
     &:before {
       color: #2c2c2c;
@@ -14,37 +14,36 @@
     }
   }
 
-  .slick-prev {
-    left: -40px;
-  }
-
-  .slick-next {
-    right: -40px;
-  }
+  .slick-prev { left: 5px; }
+  .slick-next { right: 5px; }
 }
 
 .card {
-  background: #2c2c2c;
-  color: white;
-  border: 2px solid white;
+  background: white;
+  color: #2c2c2c;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 0.3rem;
+  padding: 0.5rem;
   text-align: center;
   transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  width: 220px;
+  height: 320px;
+  margin: 0 0.25rem;  // reduce margen para que no desborde
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 250px;
+  box-sizing: border-box;
 
   &:hover {
     transform: scale(1.03);
-    box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
 
   img {
     width: 100%;
-    height: 120px;
-    object-fit: cover;
+    height: 150px;
+    object-fit: contain;
     border-radius: 4px;
   }
 
@@ -64,18 +63,44 @@
     font-size: 0.85rem;
     margin-bottom: 0.3rem;
   }
+}
 
-  button {
-    background: gold;
-    color: #2c2c2c;
-    border: none;
-    padding: 0.3rem 0.5rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s;
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 
-    &:hover {
-      background: #ffd700;
+  .modalContent {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    max-width: 300px;
+    text-align: center;
+
+    img {
+      width: 100%;
+      border-radius: 4px;
+    }
+
+    h3 { margin: 0.5rem 0; }
+
+    p { font-size: 0.9rem; }
+
+    button {
+      background: gold;
+      color: #2c2c2c;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background: #ffd700;
+      }
     }
   }
 }

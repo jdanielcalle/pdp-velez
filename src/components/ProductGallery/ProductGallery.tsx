@@ -3,7 +3,6 @@ import axios from 'axios';
 import Slider from 'react-slick';
 import { CartContext } from '../../context/CartContext';
 import styles from './ProductGallery.module.scss';
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -16,6 +15,7 @@ interface Product {
 
 const ProductGallery = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [modalProduct, setModalProduct] = useState<Product | null>(null);
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
@@ -24,17 +24,18 @@ const ProductGallery = () => {
         const data = Array.isArray(response.data) ? response.data : [];
         const mapped = data.map((item: any) => {
           const firstItem = item.items?.[0];
+          if (!firstItem || !firstItem.images?.[0]?.imageUrl) return null;
           return {
-            id: firstItem?.itemId || item.productId || String(Math.random()),
-            name: item.productName || 'Producto sin nombre',
-            price: firstItem?.sellers?.[0]?.commertialOffer?.Price || 0,
-            image: firstItem?.images?.[0]?.imageUrl || 'https://via.placeholder.com/150',
+            id: firstItem.itemId || item.productId,
+            name: item.productName,
+            price: firstItem.sellers?.[0]?.commertialOffer?.Price || 0,
+            image: firstItem.images[0].imageUrl
           };
-        });
-        setProducts(mapped);
+        }).filter(Boolean);
+        setProducts(mapped as Product[]);
       })
       .catch(error => {
-        console.error('Error al cargar la vitrina:', error);
+        console.error('Error al cargar productos relacionados:', error);
       });
   }, []);
 
@@ -58,18 +59,29 @@ const ProductGallery = () => {
     <div className={styles.gallery}>
       <Slider {...settings}>
         {products.map(product => (
-          <div key={product.id} className={styles.card}>
-            <img src={product.image} alt={product.name} className={styles.image} />
+          <div key={product.id} className={styles.card} onClick={() => setModalProduct(product)}>
+            <img src={product.image} alt={product.name} />
             <h3>{product.name}</h3>
-            <p>
-              {new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(product.price)}
-            </p>
-            <button onClick={() => addToCart({ ...product, quantity: 1 })}>
-              Agregar al carrito
-            </button>
+            <p>{new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(product.price)}</p>
           </div>
         ))}
       </Slider>
+
+      {modalProduct && (
+        <div className={styles.modal} onClick={() => setModalProduct(null)}>
+          <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+            <img src={modalProduct.image} alt={modalProduct.name} />
+            <h3>{modalProduct.name}</h3>
+            <p>{new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(modalProduct.price)}</p>
+            <button onClick={() => {
+              addToCart({ ...modalProduct, quantity: 1 });
+              setModalProduct(null);
+            }}>
+              Agregar al carrito
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

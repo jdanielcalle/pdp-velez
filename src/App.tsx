@@ -12,7 +12,6 @@ function App() {
       <CartProvider>
         <Navbar />
         <ProductPage />
-        <h2 style={{ padding: '1rem' }}>Productos relacionados</h2>
         <ProductGallery />
         <CartButton />
         <WhatsAppButton />

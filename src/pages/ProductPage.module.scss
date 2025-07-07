@@ -1,5 +1,6 @@
 .pageWrapper {
   padding: 1rem;
+  overflow-x: hidden;  // previene desbordamiento horizontal
 }
 
 .productPage {
@@ -7,6 +8,8 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   color: white;
+  max-width: 100%;  // asegura que no desborde
+  box-sizing: border-box;
 }
 
 .images {
@@ -16,6 +19,8 @@
 
   img {
     width: 100%;
+    height: auto;
+    object-fit: contain;
     border-radius: 8px;
   }
 }
@@ -58,7 +63,6 @@
     color: white;
     border-radius: 4px;
     cursor: pointer;
-    transition: background 0.3s;
 
     &.selected {
       background: gold;
