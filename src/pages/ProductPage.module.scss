@@ -1,36 +1,90 @@
-.productPage {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+.pageWrapper {
   padding: 1rem;
 }
 
-.card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 0.5rem;
-  text-align: center;
-  background: white;
+.productPage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  color: white;
+}
 
-  .image {
+.images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.5rem;
+
+  img {
     width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 4px;
+    border-radius: 8px;
   }
+}
+
+.info {
+  background: #2c2c2c;
+  padding: 1rem;
+  border-radius: 8px;
+
+  h1 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin: 0.25rem 0;
+  }
+
+  .full {
+    text-decoration: line-through;
+    color: #bbb;
+    margin-left: 0.5rem;
+  }
+
+  .discount {
+    font-weight: bold;
+    color: gold;
+    margin-left: 0.5rem;
+  }
+}
+
+.sizes {
+  margin: 1rem 0;
 
   button {
-    background: #2c2c2c;
+    margin: 0.2rem;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid white;
+    background: transparent;
     color: white;
-    border: none;
-    padding: 0.5rem;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 0.5rem;
-    transition: transform 0.2s;
+    transition: background 0.3s;
+
+    &.selected {
+      background: gold;
+      color: #2c2c2c;
+    }
 
     &:hover {
-      transform: scale(1.05);
+      background: rgba(255, 215, 0, 0.3);
     }
   }
+}
+
+.addButton {
+  background: gold;
+  color: #2c2c2c;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background: #ffd700;
+  }
+}
+
+.relatedTitle {
+  color: #2c2c2c;
+  margin: 2rem 0 1rem;
 }

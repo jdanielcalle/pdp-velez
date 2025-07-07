@@ -4,7 +4,9 @@ interface CartItem {
   id: string;
   name: string;
   price: number;
+  image: string;
   quantity: number;
+  size?: string;
 }
 
 interface CartContextType {
@@ -24,32 +26,33 @@ export const CartContext = createContext<CartContextType>({
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
+  // 🔹 Cargar carrito desde localStorage
   useEffect(() => {
-    const stored = localStorage.getItem('cart');
-    if (stored) {
-      setCartItems(JSON.parse(stored));
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      setCartItems(JSON.parse(storedCart));
     }
   }, []);
 
+  // 🔹 Guardar carrito en localStorage
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
   const addToCart = (item: CartItem) => {
     setCartItems(prev => {
-      const existing = prev.find(i => i.id === item.id);
+      const existing = prev.find(p => p.id === item.id);
       if (existing) {
-        return prev.map(i =>
-          i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i
+        return prev.map(p => 
+          p.id === item.id ? { ...p, quantity: p.quantity + item.quantity } : p
         );
-      } else {
-        return [...prev, item];
       }
+      return [...prev, item];
     });
   };
 
   const removeFromCart = (id: string) => {
-    setCartItems(prev => prev.filter(i => i.id !== id));
+    setCartItems(prev => prev.filter(item => item.id !== id));
   };
 
   const clearCart = () => {
