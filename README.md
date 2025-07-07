@@ -42,8 +42,12 @@ src/
 - 📄 Página de Detalle de Producto (PDP)
 - 🗺 Modal con mapa (Google Maps) para buscar tiendas Vélez cercanas
 - 💬 Botón flotante de WhatsApp
-- 📱 Responsive Design + Dark Mode adaptativo
-- ✨ Animaciones de microinteracciones (Framer Motion)
+- 📱 Responsive Design
+- 🧪 Tests unitarios de componentes y lógica de contexto
+
+## ⚙ **Funcionalidades a implementar**
+
+- 📱 Dark Mode adaptativo
 - 🧪 Tests unitarios de componentes y lógica de contexto
 
 ---
