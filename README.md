@@ -73,7 +73,7 @@ npm run build
 ## 🌎 Despliegue
 
 El proyecto está desplegado en Vercel:  
-👉 https://pdp-velez.vercel.app
+👉 https://pdp-velez-dkxj.vercel.app
 
 ---
 
